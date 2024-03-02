@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Video;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -10,17 +11,20 @@ public class EnemyAI : MonoBehaviour
     public PlayerController Player;
     private bool _isPlayerNoticed;
     public float ViewAngle;
+    public float Damage = 30;
+    private PlayerHealth _playerHealth;
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         PickNewPatrolPoint();
+        _playerHealth = Player.GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
         if (!_isPlayerNoticed)
         {
-            if (_navMeshAgent.remainingDistance == 0)
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             {
                 PickNewPatrolPoint();
             }
@@ -29,7 +33,12 @@ public class EnemyAI : MonoBehaviour
         if (_isPlayerNoticed)
         {
             _navMeshAgent.destination = Player.transform.position;
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            {
+                AttackUpdate();
+            }
         }
+
     }
 
     private void NoticePlayerUpdate()
@@ -52,5 +61,9 @@ public class EnemyAI : MonoBehaviour
     private void PickNewPatrolPoint()
     {
         _navMeshAgent.destination = PatrolPoints[Random.Range(0, PatrolPoints.Count)].position;
+    }
+    private void AttackUpdate()
+    {
+        _playerHealth.DealDamage(Damage * Time.deltaTime);
     }
 }
