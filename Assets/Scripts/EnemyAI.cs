@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class EnemyAI : MonoBehaviour
@@ -13,6 +14,8 @@ public class EnemyAI : MonoBehaviour
     public float ViewAngle;
     public float Damage = 30;
     private PlayerHealth _playerHealth;
+    public Animator animator;
+    public float AttackDistance = 1;
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -35,17 +38,24 @@ public class EnemyAI : MonoBehaviour
             _navMeshAgent.destination = Player.transform.position;
             if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             {
-                AttackUpdate();
+                animator.SetTrigger("attack");
             }
         }
 
     }
+    public void Attack()
+    {
+        if (!_isPlayerNoticed) return;
+        if (_navMeshAgent.remainingDistance > (_navMeshAgent.stoppingDistance + AttackDistance)) return;
+        _playerHealth.DealDamage(Damage);
+    }
 
     private void NoticePlayerUpdate()
     {
-        var direction = Player.transform.position - transform.position;
         RaycastHit hit;
         _isPlayerNoticed = false;
+        if (_playerHealth._curentValue <= 0) return;
+        var direction = Player.transform.position - transform.position;
         if (Vector3.Angle(transform.forward, direction) < ViewAngle)
         {
             if (Physics.Raycast(transform.position + Vector3.up, direction, out hit))
@@ -62,8 +72,5 @@ public class EnemyAI : MonoBehaviour
     {
         _navMeshAgent.destination = PatrolPoints[Random.Range(0, PatrolPoints.Count)].position;
     }
-    private void AttackUpdate()
-    {
-        _playerHealth.DealDamage(Damage * Time.deltaTime);
-    }
+
 }

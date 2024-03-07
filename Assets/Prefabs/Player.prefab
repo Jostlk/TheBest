@@ -36,6 +36,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &918627811568266978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3617678881546818872}
+  m_Layer: 0
+  m_Name: Grenade Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3617678881546818872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918627811568266978}
+  m_LocalRotation: {x: -0.18605733, y: -0, z: -0, w: 0.98253894}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1793933910749955573}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -21.446001, y: 0, z: 0}
 --- !u!1 &2240592542037862711
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +558,7 @@ GameObject:
   - component: {fileID: 4882109996175291614}
   - component: {fileID: 9216117308496962531}
   - component: {fileID: 7238108089052962705}
+  - component: {fileID: 6752164458655247714}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -585,6 +616,7 @@ MonoBehaviour:
   Gravity: 9.8
   JumpForce: 10
   Speed: 5
+  animator: {fileID: 0}
 --- !u!143 &4882109996175291614
 CharacterController:
   m_ObjectHideFlags: 0
@@ -600,7 +632,7 @@ CharacterController:
   m_Radius: 0.27
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.63, z: -0.03}
 --- !u!114 &9216117308496962531
@@ -632,8 +664,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxValue: 100
   Healthbar: {fileID: 8272570837924884726}
+  _curentValue: 0
   GameplayUI: {fileID: 6001600151099964447}
   GameOverScreen: {fileID: 7981907862524937160}
+  animator: {fileID: 0}
+--- !u!114 &6752164458655247714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882109996175291611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e3f191a378ce3419e240bcbf2a0233, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrenadePrefab: {fileID: -3643095234426787443, guid: 5e287f359423fc5478a3ed90107f5603,
+    type: 3}
+  GrenadeSourceTransform: {fileID: 3617678881546818872}
+  Force: 500
 --- !u!1 &4882109996372308574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164353676646722010}
   - component: {fileID: 5831134258639528330}
+  - component: {fileID: 8893496690546945389}
   m_Layer: 5
   m_Name: Game Over Screen
   m_TagString: Untagged
@@ -1201,6 +1252,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcddb7c256d72644186d63dd789e4a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &8893496690546945389
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7981907862524937160}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03a7766cad215dc4395390e8a91ebc15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8796934913553958271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,7 +1298,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.481, y: 0.6339998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3617678881546818872}
   m_Father: {fileID: 4882109996175291613}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1314,7 +1385,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ch14_nonPBR
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 79118851b7a05d041abf65f8b0358328, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 79118851b7a05d041abf65f8b0358328, type: 3}
 --- !u!4 &4920750291089150704 stripped
 Transform:

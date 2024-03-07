@@ -479,7 +479,7 @@ ModelImporter:
     second: GOBLIN_BASE
   - first:
       74: 7400000
-    second: Goblin_armature|ArmatureAction
+    second: pow_attack (1)
   - first:
       74: 7400002
     second: walk
@@ -537,6 +537,9 @@ ModelImporter:
   - first:
       137: 13700002
     second: GOBLIN_BASE
+  - first:
+      74: 7214207277720195143
+    second: Goblin_armature|ArmatureAction
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -1894,7 +1897,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.6625766
+        functionName: AttackDamage
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

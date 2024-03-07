@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float JumpForce;
     public float Speed;
     private Vector3 _moveVector;
+    public Animator animator;
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -20,27 +22,33 @@ public class PlayerController : MonoBehaviour
     {
         //Move
         _moveVector = Vector3.zero;
+        var runDirection = 0;
         if (Input.GetKey(KeyCode.W))
         {
             _moveVector += transform.forward;
+            runDirection = 1;
         }
         if (Input.GetKey(KeyCode.D))
         {
             _moveVector += transform.right;
+            runDirection = 3;
         }
         if (Input.GetKey(KeyCode.S))
         {
             _moveVector += -transform.forward;
+            runDirection = 2;
         }
         if (Input.GetKey(KeyCode.A))
         {
             _moveVector += -transform.right;
+            runDirection = 4;
         }
         //Jump
         if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
             _fallVelocity = -JumpForce;
         }
+        animator.SetInteger("Run direction",runDirection);
     }
     void FixedUpdate()
     {

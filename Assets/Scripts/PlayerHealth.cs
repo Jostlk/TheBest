@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,10 +8,13 @@ public class PlayerHealth : MonoBehaviour
 {
     public float MaxValue = 100;
     public Slider Healthbar;
-    private float _curentValue;
+    public float _curentValue;
 
     public GameObject GameplayUI;
     public GameObject GameOverScreen;
+
+    public Animator animator;
+
     private void Start()
     {
         _curentValue = MaxValue;
@@ -33,8 +37,16 @@ public class PlayerHealth : MonoBehaviour
     {
         GameplayUI.SetActive(false);
         GameOverScreen.SetActive(true);
+        GameOverScreen.GetComponent<Animator>().SetTrigger("show");
         GetComponent<PlayerController>().enabled = false;
         GetComponent<FireballCaster>().enabled = false;
         GetComponent<CameraRotation>().enabled = false;
+        animator.SetTrigger("Death");
+    }
+    public void AddHealth(float amount)
+    {
+        _curentValue += amount;
+        _curentValue = Mathf.Clamp(_curentValue, 0, MaxValue);
+        UpdateHealthbar();
     }
 }
