@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -16,11 +13,18 @@ public class EnemyAI : MonoBehaviour
     private PlayerHealth _playerHealth;
     public Animator animator;
     public float AttackDistance = 1;
+    private EnemyHealth _enemyHealth;
+
+    public bool IsAlive()
+    {
+        return _enemyHealth.IsAlive();
+    }
     void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         PickNewPatrolPoint();
         _playerHealth = Player.GetComponent<PlayerHealth>();
+        _enemyHealth = GetComponent<EnemyHealth>();
     }
 
     void Update()

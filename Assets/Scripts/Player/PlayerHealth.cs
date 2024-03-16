@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
 
     public Animator animator;
 
+    public ParticleSystem HealEffect;
+
     private void Start()
     {
         _curentValue = MaxValue;
@@ -47,6 +49,7 @@ public class PlayerHealth : MonoBehaviour
     {
         _curentValue += amount;
         _curentValue = Mathf.Clamp(_curentValue, 0, MaxValue);
+        HealEffect.Play();
         UpdateHealthbar();
     }
 }

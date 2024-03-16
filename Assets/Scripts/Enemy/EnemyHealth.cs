@@ -8,8 +8,20 @@ public class EnemyHealth : MonoBehaviour
 {
     public float value = 100;
     public Animator animator;
+    public Explosion ExplosionPrefab;
+    public PlayerProgress progress;
+
+    private void Start()
+    {
+        progress = FindObjectOfType<PlayerProgress>();
+    }
+    public bool IsAlive()
+    {
+        return value > 0;
+    }
     public void DealDamage(float damage)
     {
+        progress.AddExperience(damage);
         value -= damage;
         if (value <= 0)
         {
@@ -27,10 +39,14 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<EnemyAI>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<CapsuleCollider>().enabled = false;
-        Invoke("OnDestroy",5);
+        Invoke("MobExplosion",2);
+        Destroy(gameObject, 5);
     }
-    private void OnDestroy()
+
+    private void MobExplosion()
     {
-        Destroy(gameObject);
+        if (ExplosionPrefab == null) return;
+        var explosion = Instantiate(ExplosionPrefab);
+        explosion.transform.position = transform.position;
     }
 }
