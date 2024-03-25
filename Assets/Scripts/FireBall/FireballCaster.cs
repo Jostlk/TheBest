@@ -8,6 +8,7 @@ public class FireballCaster : MonoBehaviour
 
     public FireBall FireballPrefab;
     public Transform FireballSourceTransform;
+    public AudioSource FireballSound;
 
     void Update()
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using static Data.Util.KeywordDependentCollection;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float Speed;
     private Vector3 _moveVector;
     public Animator animator;
+    public AudioSource Jump;
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -46,20 +48,21 @@ public class PlayerController : MonoBehaviour
         //Jump
         if (Input.GetKeyDown(KeyCode.Space) && _characterController.isGrounded)
         {
+            Jump.Play();
             _fallVelocity = -JumpForce;
         }
-        animator.SetInteger("Run direction",runDirection);
+        animator.SetInteger("Run direction", runDirection);
     }
     void FixedUpdate()
     {
         //Move
         _characterController.Move(_moveVector * Speed * Time.fixedDeltaTime);
-        if(_characterController.isGrounded) 
+        _fallVelocity += Gravity * Time.fixedDeltaTime;
+        //Gravity
+        _characterController.Move(_fallVelocity * Time.fixedDeltaTime * Vector3.down);
+        if (_characterController.isGrounded)
         {
             _fallVelocity = 0;
         }
-        //Gravity
-        _fallVelocity += Gravity * Time.fixedDeltaTime;
-        _characterController.Move(_fallVelocity * Time.fixedDeltaTime * Vector3.down);
     }
 }

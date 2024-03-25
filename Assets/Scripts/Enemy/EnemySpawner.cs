@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public EnemyAI EnemyPrefab;
     public PlayerController Player;
     public List<Transform> PatrolPoints;
+    public AudioSource GoblinSound;
 
     private List<Transform> _spawmer;
     private List<EnemyAI> _enemies;
@@ -19,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         _spawmer = new List<Transform>(GetComponentsInChildren<Transform>());
+        _spawmer.Remove(_spawmer[0]);
         _enemies = new List<EnemyAI>();
     }
 
@@ -48,6 +50,20 @@ public class EnemySpawner : MonoBehaviour
         enemy.Player = Player;
         enemy.PatrolPoints = PatrolPoints;
         _enemies.Add(enemy);
+        var range = Random.Range(0, 2);
+        if (range == 0)
+        {
+            GoblinSound.Play();
+        }
         _timeLastSpawned = Time.time;
+
+    }
+    public void DestroyAllEnemys()
+    {
+        enabled = false;
+        for (var i = 0; i < _enemies.Count; i++)
+        {
+            Destroy(_enemies[i].gameObject);
+        }
     }
 }

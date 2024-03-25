@@ -9,7 +9,7 @@ public class FireBall : MonoBehaviour
     public float Damage = 10;
     private void Start()
     {
-        Invoke("DestroyFireBall", LifeTime);
+        Destroy(gameObject, LifeTime);
     }
     void FixedUpdate()
     {
@@ -18,15 +18,11 @@ public class FireBall : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         DamageEnemy(collision);
-        DestroyFireBall();
+        Destroy(gameObject);
     }
     void MoveFixedUpdate()
     {
         transform.position += transform.forward * Speed * Time.fixedDeltaTime;
-    }
-    private void DestroyFireBall()
-    {
-        Destroy(gameObject);
     }
     private void DamageEnemy(Collision collision)
     {
