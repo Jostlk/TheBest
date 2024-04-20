@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
-using static Data.Util.KeywordDependentCollection;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {

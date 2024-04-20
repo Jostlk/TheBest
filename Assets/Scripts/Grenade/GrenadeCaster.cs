@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GrenadeCaster : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class GrenadeCaster : MonoBehaviour
     public float Force = 10;
     void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
             var grenade = Instantiate(GrenadePrefab);
             grenade.transform.position = GrenadeSourceTransform.position;

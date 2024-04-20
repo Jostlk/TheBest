@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
@@ -16,7 +13,7 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.localScale.x > MaxSize)
+        if (transform.localScale.x > MaxSize)
         {
             Destroy(gameObject);
         }
@@ -25,7 +22,7 @@ public class Explosion : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var playerHealth = other.GetComponent<PlayerHealth>();
-        if(playerHealth != null)
+        if (playerHealth != null)
         {
             playerHealth.DealDamage(Damage);
         }

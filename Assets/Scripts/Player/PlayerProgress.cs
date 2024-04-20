@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.AI;
 
 public class PlayerProgress : MonoBehaviour
 {
@@ -15,7 +13,6 @@ public class PlayerProgress : MonoBehaviour
     public Slider ExperienceScale;
     public TextMeshProUGUI LevelValueTMP;
     public GameObject BananaIcon;
-    public GameObject Text;
 
     public Transform SpawnPoint;
     public GameObject BossPreafab;
@@ -23,12 +20,12 @@ public class PlayerProgress : MonoBehaviour
     public List<Transform> PatrolPoints;
     public GameObject Vulcan;
     public GameObject Enemy2Spawner;
-    public Final Final;
+    public GameObject Portal;
+    public GameObject Capsule;
 
     private void Start()
     {
         DrawUI();
-        Destroy(Text,7);
         SetLevel(_levelValue);
     }
     public void AddExperience(float value)
@@ -65,7 +62,7 @@ public class PlayerProgress : MonoBehaviour
 
     private void CheckLevel(int value)
     {
-        if(value == 3 && _levelValue == value)
+        if (value == 3 && _levelValue == value)
         {
             BananaIcon.SetActive(true);
         }
@@ -86,6 +83,7 @@ public class PlayerProgress : MonoBehaviour
         else if (value == 7 && _levelValue == value)
         {
             Enemy2Spawner.SetActive(true);
+            Portal.SetActive(true);
         }
         else if (value == 8 && _levelValue == value)
         {
@@ -93,15 +91,7 @@ public class PlayerProgress : MonoBehaviour
         }
         else if (value == 10 && _levelValue == value)
         {
-            SpawnPoint.position = new Vector3(-13.62f, 3.25f, -12.81f);
-            var boss = Instantiate(BossPreafab, SpawnPoint);
-            boss.transform.localScale += Vector3.one * 2;
-            boss.GetComponent<NavMeshAgent>().stoppingDistance = 6;
-            var bossHealth = boss.GetComponent<EnemyHealth>();
-            bossHealth.value = 10000;
-            bossHealth.Final = Final;
-            boss.GetComponent<EnemyAI>().Player = Player;
-            boss.GetComponent<EnemyAI>().PatrolPoints = PatrolPoints;
+            Destroy(Capsule);
             enabled = false;
         }
     }

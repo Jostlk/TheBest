@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class Vulcan : MonoBehaviour
 {
@@ -12,14 +9,14 @@ public class Vulcan : MonoBehaviour
     public float DelayMax = 3;
     private void Start()
     {
-        Invoke("SpawnGrenade", Random.Range(DelayMin,DelayMax));
+        Invoke("SpawnGrenade", Random.Range(DelayMin, DelayMax));
     }
     private void SpawnGrenade()
     {
         var grenade = Instantiate(GrenadePrefab);
         grenade.transform.position = transform.position;
         var direction = Random.onUnitSphere;
-        grenade.GetComponent<Rigidbody>().AddForce(direction * Random.Range(ForceMin,ForceMax));
+        grenade.GetComponent<Rigidbody>().AddForce(direction * Random.Range(ForceMin, ForceMax));
         Invoke("SpawnGrenade", Random.Range(DelayMin, DelayMax));
     }
 }

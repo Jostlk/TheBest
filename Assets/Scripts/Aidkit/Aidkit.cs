@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Aidkit : MonoBehaviour
 {
@@ -10,19 +8,19 @@ public class Aidkit : MonoBehaviour
     public AudioSource Healing;
     private void Update()
     {
-        transform.localEulerAngles = new Vector3(0,transform.localEulerAngles.y + 80 * Time.deltaTime,0);
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y + 80 * Time.deltaTime, 0);
     }
     private void OnTriggerEnter(Collider other)
     {
         var playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-        if(playerHealth != null)
+        if (playerHealth != null)
         {
             playerHealth.AddHealth(HealAmount);
             Healing.Play();
             AidkitModel.SetActive(false);
             Particle.SetActive(false);
             GetComponent<SphereCollider>().enabled = false;
-            Destroy(gameObject,2);
+            Destroy(gameObject, 2);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyHealth : MonoBehaviour
@@ -21,6 +17,14 @@ public class EnemyHealth : MonoBehaviour
     public bool IsAlive()
     {
         return value > 0;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Если скорость столкновения больше 10
+        if (collision.relativeVelocity.magnitude > 10)
+        {
+            DealDamage(800);
+        }
     }
     public void DealDamage(float damage)
     {
@@ -53,7 +57,7 @@ public class EnemyHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (transform.localScale == new Vector3(3,3,3))
+        if (transform.localScale == new Vector3(3, 3, 3))
         {
             GetComponent<AudioSource>().Stop();
             Destroy(gameObject, 5);

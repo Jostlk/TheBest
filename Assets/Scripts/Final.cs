@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Final : MonoBehaviour
 {
@@ -26,9 +23,9 @@ public class Final : MonoBehaviour
         Text.SetText("YOU WON!");
         GameOverScreen.GetComponent<Animator>().SetTrigger("show");
         Animator.SetInteger("Run direction", 0);
-        PlayerController.enabled = false;
-        PlayerController.GetComponent<CameraRotation>().enabled = false;
-        PlayerController.GetComponent<FireballCaster>().enabled = false;
+        Destroy(PlayerController);
+        Destroy(PlayerController.GetComponent<CameraRotation>());
+        Destroy(PlayerController.GetComponent<FireballCaster>());
         EnemySpawner.DestroyAllEnemys();
         Enemy2Spawner.DestroyAllEnemys();
     }

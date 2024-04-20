@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -41,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
     }
     void UpdateHealthbar()
     {
-        Healthbar.value = Mathf.Lerp(0,1,_curentValue/MaxValue);
+        Healthbar.value = Mathf.Lerp(0, 1, _curentValue / MaxValue);
         Image.color = Color.Lerp(Material1.color, Material2.color, _curentValue / MaxValue);
     }
     private void PlayerIsDead()
